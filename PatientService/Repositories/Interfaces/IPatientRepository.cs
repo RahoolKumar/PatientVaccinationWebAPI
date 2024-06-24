@@ -12,6 +12,7 @@ namespace PatientService.Repositories.Interfaces
         Task<AppResponse> UpdatePatient(PatientDTO patient,int id);
         Task<AppResponse> DeletePatient(int id);
 
+        Task<AppResponse> ShowVaccinationStatus(int patientId);
         Task<AppResponse> UpdateVaccinationStatusByPatientId(int id);
     }
 }

@@ -144,6 +144,42 @@ namespace PatientService.Repositories.Implementations
             return response;
         }
 
+        public async Task<AppResponse> ShowVaccinationStatus(int patientId)
+        {
+            var response = new AppResponse();
+            try
+            {
+
+                var vaccinationStatus = await _patientDbContext.Patients
+                        .Where(p => p.PatientId == patientId)
+                        .Select(p => new
+                        {
+                            p.VaccinationStatus
+                        }).FirstOrDefaultAsync();
+
+
+
+                if (vaccinationStatus != null)
+                {
+
+                    response.Result = vaccinationStatus;
+                    response.IsSuccess = true;
+                    response.Message = "Patient found.";
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = $"Patient with ID '{patientId}' not found.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = $"Error retrieving patient: {ex.Message}";
+            }
+            return response;
+        }
+
         public async Task<AppResponse> UpdatePatient(PatientDTO patient,int id)
         {
             var response = new AppResponse();

@@ -51,7 +51,13 @@ namespace PatientService.Controllers
             await _patientRepository.UpdatePatient(patient,id);
             return NoContent();
         }
+        [HttpGet("CheckPatientVaccinationStatus/{Id}")]
+        public async Task<IActionResult> CheckPatientVaccinationStatus(int Id)
+        {
+            return Ok(await _patientRepository.ShowVaccinationStatus(Id));
 
+
+        }
 
     }
 }
